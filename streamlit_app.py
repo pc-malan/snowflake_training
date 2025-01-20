@@ -6,8 +6,8 @@ import requests
 
 
 # Write directly to the app
-st.title(":cup_with_straw: Customise Your Smoothie! :cup_with_straw:")
-st.write("""Choose the fruits you want in your custom smoothie.""")
+st.title("Snoflake Training")
+st.write("""Snowflake Training""")
 
 
 
@@ -50,7 +50,9 @@ if ingredients_list:
     for ingredient in ingredients_list:
         ingredients_string+= ingredient + ' '
 
-    st.write(ingredients_string)
+        smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/" + ingredient)
+        sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+
 
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
                 values ('""" + ingredients_string + """','""" + name_on_order + """')"""
@@ -66,6 +68,3 @@ if ingredients_list:
             session.sql(my_insert_stmt).collect()
             st.success('Your Smoothie is ordered!', icon="✅")
 
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
