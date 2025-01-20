@@ -1,6 +1,5 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
 # Write directly to the app
@@ -14,7 +13,8 @@ st.write("""Choose the fruits you want in your custom smoothie.""")
 ###########################
 
 # Get the current credentials
-session = get_active_session()
+cnx = st.connection("snowflake")
+session = cnx.session()
 
 # Create a DF of the fruit names
 my_df = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
