@@ -27,7 +27,6 @@ st.dataframe(data=my_df, use_container_width=True)
 # Create a pandas DF of the fruit names
 pd_df = my_df.to_pandas()
 st.dataframe(data=pd_df, use_container_width=True)
-st.stop()
 
 
 
