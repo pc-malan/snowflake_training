@@ -20,7 +20,14 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 # Create a DF of the fruit names
-my_df = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+my_df = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
+st.dataframe(data=my_df, use_container_width=True)
+
+
+# Create a pandas DF of the fruit names
+pd_df = my_df.to_pandas()
+st.dataframe(data=pd_df, use_container_width=True)
+st.stop()
 
 
 
